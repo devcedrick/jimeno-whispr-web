@@ -6,7 +6,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="bg-background flex max-sm:flex-col min-h-screen w-screen p-0 sm:pl-20 box-border">
+    <main className="bg-background flex max-sm:flex-col h-dvh w-screen p-0 sm:pl-20 box-border">
       {/* BRAND SECTION */}
       <div className="flex flex-col w-full sm:w-[40vw] p-6 gap-4 sm:gap-6.25 justify-center relative">
         <div className='flex items-center h-max gap-1 sm:gap-3'>
@@ -27,7 +27,7 @@ export default function AuthLayout({
       {/* FORM SECTION */}
       <div className="flex-1 flex justify-center max-sm:pt-4 sm:items-center">
         {/* Form Holder */}
-        <div className="flex flex-col items-center gap-4 max-sm:flex-1 sm:h-max sm:w-120 rounded-4xl sm:rounded-lg py-10 px-6 sm:px-12 max-sm:rounded-b-none border bg-white shadow-md">
+        <div className="flex flex-col items-center gap-4 max-sm:flex-1 sm:h-max sm:w-120 rounded-4xl sm:rounded-lg py-10 px-8 sm:px-12 max-sm:rounded-b-none border bg-white shadow-md">
           {children}
         </div>
       </div>
