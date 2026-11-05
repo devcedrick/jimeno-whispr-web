@@ -132,7 +132,7 @@ const ActivitySummary = ({targetUserId}: ActivitySummaryProps) => {
                       {
                         stats?.todaysMood  === "No data" || !stats?.todaysMood ?
                         <>No mood logged today.</> :
-                        <>Today's mood is <span className='font-semibold text-primary'>{stats?.todaysMood}</span>.</>
+                        <>Today&apos;s mood is <span className='font-semibold text-primary'>{stats?.todaysMood}</span>.</>
                       }
                     </p>
                   </div>

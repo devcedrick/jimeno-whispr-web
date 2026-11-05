@@ -34,7 +34,7 @@ const UserFeed = ({targetUserId}: UserFeedProps) => {
     <Card className='flex-1'>
       <CardHeader>
         <CardTitle>Your Posts</CardTitle>
-        <CardDescription>Posts you've made recently</CardDescription>
+        <CardDescription>Posts you&apos;ve made recently</CardDescription>
       </CardHeader>
       <CardContent className='flex flex-col gap-4'>
         {
