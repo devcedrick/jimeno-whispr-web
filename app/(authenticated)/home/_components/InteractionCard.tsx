@@ -133,7 +133,7 @@ const InteractionCard = () => {
       <CardHeader>
         <CardTitle>Choose your role</CardTitle>
         <CardDescription>
-          Whether you need support or want to help others, we're here to connect you safely.
+          Whether you need support or want to help others, we&apos;re here to connect you safely.
         </CardDescription>
       </CardHeader>
       <CardContent className='flex flex-col w-full'> 

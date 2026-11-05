@@ -27,7 +27,7 @@ const MoodHistory = ({targetUserId}: MoodHistoryProps) => {
   useEffect(() => {
     const fetchMonthMoods = async () => {
       const supabase = createClient();
-      let userId = targetUserId;
+      const userId = targetUserId;
 
       if (!userId) return;
 

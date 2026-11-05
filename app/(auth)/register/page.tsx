@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-const page = () => {
+const RegisterPage = () => {
   const [credentials, setCredentials] = useState<{anonId: string, password: string}>({
     anonId: '',
     password: ''
@@ -130,4 +130,4 @@ const page = () => {
   )
 }
 
-export default page
+export default RegisterPage

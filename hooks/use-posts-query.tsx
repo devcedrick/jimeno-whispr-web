@@ -45,7 +45,7 @@ export function usePostsQuery(getNearby: boolean = true) {
       return;
     }
     
-    let myLikedPostIds = new Set();
+    const myLikedPostIds = new Set();
     if (user) {
       const {data: likesData} = await supabase
         .from('post_likes')
