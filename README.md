@@ -109,7 +109,7 @@ Whispr hopes to remove these barriers by providing:
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 22.12+ (Node 22 LTS or newer; Vitest 5 requires `^22.12.0 || ^24.0.0 || >=26.0.0`)
 - npm, yarn, pnpm, or bun
 - Supabase account
 - Upstash account (for rate limiting)
