@@ -1,4 +1,5 @@
 title = "Whispr secret scanning"
+minVersion = "8.30.1"
 
 # Start from the maintained default ruleset, so new secret types are covered
 # automatically, and only add project-specific allowlists below.
