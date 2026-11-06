@@ -43,7 +43,7 @@ const UserFeed = ({targetUserId}: UserFeedProps) => {
     <Card className='flex-1'>
       <CardHeader>
         <CardTitle>Your Posts</CardTitle>
-        <CardDescription>Posts you've made recently</CardDescription>
+        <CardDescription>Posts you&apos;ve made recently</CardDescription>
       </CardHeader>
       <CardContent className='flex flex-col gap-4'>
         {
@@ -55,7 +55,7 @@ const UserFeed = ({targetUserId}: UserFeedProps) => {
                 <EmptyMedia variant="icon" className='bg-gray-200'>
                   <MessageCircleDashed />
                 </EmptyMedia>
-                <EmptyTitle>It's quiet here...</EmptyTitle>
+                <EmptyTitle>It&apos;s quiet here...</EmptyTitle>
                 <EmptyDescription>
                   Be the first to break the silence. Share your thoughts anonymously.
                 </EmptyDescription>

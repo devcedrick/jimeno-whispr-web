@@ -93,7 +93,7 @@ const MoodCheckCard = () => {
         <CardHeader>
           <CardTitle className="text-primary">Check-in Complete!</CardTitle>
           <CardDescription>
-            Remember, your feelings are valid. We're here when you need us.
+            Remember, your feelings are valid. We&apos;re here when you need us.
           </CardDescription>
           <CardContent className="flex items-center justify-between sm:justify-evenly mt-4 h-25">
             {

@@ -35,7 +35,7 @@ const Logout = () => {
         <CardHeader>
           <CardTitle>Ready to head out?</CardTitle>
           <CardDescription>
-            We're here whenever you need to talk or listen again. Take care of yourself.
+            We&apos;re here whenever you need to talk or listen again. Take care of yourself.
           </CardDescription>
         </CardHeader>
         <CardFooter className="flex gap-3">

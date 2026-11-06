@@ -9,7 +9,7 @@ import MoodHistory from './_components/MoodHistory'
 import ProfileCard from './_components/ProfileCard'
 import UserFeed from './_components/UserFeed'
 
-const page = () => {
+const ProfilePage = () => {
   const supabase = createClient();
   const params = useParams();
   const anonId = Array.isArray(params.anonId) ? params.anonId[0] : params.anonId;
@@ -57,4 +57,4 @@ const page = () => {
   )
 }
 
-export default page
+export default ProfilePage

@@ -28,7 +28,7 @@ export function useCurrentUser(){
 
         if (!anonData) return;
 
-        let userData: User = { 
+        const userData: User = { 
             id: user.id, 
             name: anonData.anon_id ,
             role: null,
