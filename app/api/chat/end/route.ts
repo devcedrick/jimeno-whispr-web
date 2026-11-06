@@ -5,7 +5,9 @@ export async function POST(req: Request) {
   const supabase = await createClient();
   const { sessionId } = await req.json();
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -25,41 +27,36 @@ export async function POST(req: Request) {
 
   const deletedSession = data[0];
 
-  const { error: feedbackError } = await supabase
-    .from("feedback_permissions")
-    .insert([
-      {
-        user_id: deletedSession.user_a,
-        partner_id: deletedSession.user_b,
-        session_id: deletedSession.id,
-      },
-      {
-        user_id: deletedSession.user_b,
-        partner_id: deletedSession.user_a,
-        session_id: deletedSession.id,
-      }
-    ]);
+  const { error: feedbackError } = await supabase.from("feedback_permissions").insert([
+    {
+      user_id: deletedSession.user_a,
+      partner_id: deletedSession.user_b,
+      session_id: deletedSession.id,
+    },
+    {
+      user_id: deletedSession.user_b,
+      partner_id: deletedSession.user_a,
+      session_id: deletedSession.id,
+    },
+  ]);
 
-  if(feedbackError) {
+  if (feedbackError) {
     return NextResponse.json({ error: "Failed to create feedback permission" }, { status: 500 });
   }
-
 
   // Calculate Session Duration
   const startTime = new Date(deletedSession.created_at).getTime();
   const endTime = new Date().getTime();
   const durationInSeconds = Math.floor((endTime - startTime) / 1000);
 
-  const { error: historyError } = await supabase
-    .from("session_history")
-    .insert({
-      session_id: deletedSession.id,
-      user_a: deletedSession.user_a,
-      user_b: deletedSession.user_b,
-      user_a_role: deletedSession.user_a_role, 
-      user_b_role: deletedSession.user_b_role,
-      duration_seconds: durationInSeconds,
-    });
+  const { error: historyError } = await supabase.from("session_history").insert({
+    session_id: deletedSession.id,
+    user_a: deletedSession.user_a,
+    user_b: deletedSession.user_b,
+    user_a_role: deletedSession.user_a_role,
+    user_b_role: deletedSession.user_b_role,
+    duration_seconds: durationInSeconds,
+  });
 
   if (historyError) {
     console.error("Failed to save history:", historyError);

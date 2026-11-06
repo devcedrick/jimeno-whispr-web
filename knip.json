@@ -1,0 +1,8 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "app/**/{page,layout,loading,error,global-error,not-found,route,template,default}.{ts,tsx}",
+    "components/ui/**/*.{ts,tsx}"
+  ],
+  "ignoreDependencies": ["baseline-browser-mapping"]
+}

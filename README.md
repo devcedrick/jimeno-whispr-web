@@ -1,19 +1,19 @@
 <div align="center">
   <img src="public/whispr-final.png" alt="Whispr Logo" width="120" height="120" />
-  
-  # Whispr
-  
-  **Say It Without Saying Who.**
-  
-  A privacy-first anonymous peer support platform that connects people in their local community for safe, judgment-free conversations.
 
-  [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-  [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-  [![Supabase](https://img.shields.io/badge/Supabase-Database-3FCF8E?style=for-the-badge&logo=supabase)](https://supabase.com/)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
+# Whispr
 
-  [Live Demo](https://whispr-ph.vercel.app) · [Report Bug](../../issues) · [Request Feature](../../issues)
+**Say It Without Saying Who.**
+
+A privacy-first anonymous peer support platform that connects people in their local community for safe, judgment-free conversations.
+
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Supabase](https://img.shields.io/badge/Supabase-Database-3FCF8E?style=for-the-badge&logo=supabase)](https://supabase.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
+
+[Live Demo](https://whispr-ph.vercel.app) · [Report Bug](../../issues) · [Request Feature](../../issues)
 
 </div>
 
@@ -40,6 +40,7 @@
 ### The Problem
 
 Mental health support often comes with barriers:
+
 - Fear of judgment or stigma
 - Lack of accessible, immediate support
 - Difficulty connecting with people who understand local context
@@ -47,6 +48,7 @@ Mental health support often comes with barriers:
 ### Our Solution
 
 Whispr hopes to remove these barriers by providing:
+
 - **Complete anonymity** through system-generated credentials
 - **Location-based matching** to connect with nearby peers
 - **Timed conversations** that encourage focused, meaningful exchanges
@@ -54,34 +56,40 @@ Whispr hopes to remove these barriers by providing:
 
 ---
 
-##  Key Features
+## Key Features
 
 ### Anonymous & Secure
+
 - System-generated Anonymous IDs and passwords
 - No email, phone, or personal data required
 - Zero-knowledge authentication design
 
 ### Nearby Connections
+
 - Geolocation-based peer matching
 - Connect with people in your local community
 - Shared context without shared identity
 
 ### Timed Chat Sessions
+
 - Focused 10-minute conversations
 - Mutual extension requests (both parties must agree)
 - Automatic session cleanup for privacy
 
 ### Community Wall
+
 - Share thoughts anonymously with your community
 - React with empathy to others' posts
 - No persistent profiles or tracking
 
 ### Mood Check-ins
+
 - Daily mood tracking for self-awareness
 - Streak system to encourage consistency
 - Private and personal—only you see your data
 
 ### Role-Based Matching
+
 - Choose to **Vent** (share your thoughts) or **Listen** (support others)
 - Balanced matching algorithm
 - Earn points for being a good listener
@@ -90,18 +98,18 @@ Whispr hopes to remove these barriers by providing:
 
 ## Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| **Framework** | Next.js 16 (App Router) |
-| **Language** | TypeScript 5 |
-| **UI Library** | React 19 |
-| **Styling** | Tailwind CSS 4 |
-| **Components** | Shadcn |
-| **Database** | Supabase (PostgreSQL) |
-| **Authentication** | Supabase Auth |
-| **Realtime** | Supabase Realtime |
-| **Rate Limiting** | Upstash Redis |
-| **Deployment** | Vercel |
+| Category           | Technology              |
+| ------------------ | ----------------------- |
+| **Framework**      | Next.js 16 (App Router) |
+| **Language**       | TypeScript 5            |
+| **UI Library**     | React 19                |
+| **Styling**        | Tailwind CSS 4          |
+| **Components**     | Shadcn                  |
+| **Database**       | Supabase (PostgreSQL)   |
+| **Authentication** | Supabase Auth           |
+| **Realtime**       | Supabase Realtime       |
+| **Rate Limiting**  | Upstash Redis           |
+| **Deployment**     | Vercel                  |
 
 ---
 
@@ -117,23 +125,28 @@ Whispr hopes to remove these barriers by providing:
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/CSci-153-Web-Systems-and-Technologies/batch-2025-whispr-web.git
    cd batch-2025-whispr-web
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env.local
    ```
+
    Fill in your Supabase and Upstash credentials (see [Environment Variables](#-environment-variables))
 
 4. **Run the development server**
+
    ```bash
    npm run dev
    ```
@@ -157,12 +170,12 @@ UPSTASH_REDIS_REST_URL=your_upstash_redis_url
 UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
 ```
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | ✅ |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous/public key | ✅ |
-| `UPSTASH_REDIS_REST_URL` | Upstash Redis REST API URL | ✅ |
-| `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis REST API token | ✅ |
+| Variable                        | Description                   | Required |
+| ------------------------------- | ----------------------------- | -------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Your Supabase project URL     | ✅       |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous/public key | ✅       |
+| `UPSTASH_REDIS_REST_URL`        | Upstash Redis REST API URL    | ✅       |
+| `UPSTASH_REDIS_REST_TOKEN`      | Upstash Redis REST API token  | ✅       |
 
 ---
 
@@ -183,7 +196,7 @@ whispr/
 │   │   └── mood-checkin/     # Mood tracking
 │   └── layout.tsx            # Root layout
 |   |__ page.tsx              # Landing Page
-|   |__ logout/               # Logout 
+|   |__ logout/               # Logout
 ├── components/               # Reusable UI components
 │   ├── ui/                   # Base UI primitives
 │   └── ...                   # Feature components
@@ -202,16 +215,19 @@ whispr/
 Whispr is built with privacy as a core principle:
 
 ### Data Minimization
+
 - **No PII collected**: No emails, names, phone numbers, or social accounts
 - **Anonymous credentials**: System-generated IDs that cannot be traced back to users
 - **Location hashing**: Approximate location used for matching, never stored precisely
 
 ### Authentication Security
+
 - **Secure password hashing**: Industry-standard bcrypt via Supabase Auth
 - **HTTP-only cookies**: Session tokens protected from XSS attacks
 - **Automatic session refresh**: Seamless re-authentication without user friction
 
 ### API Security
+
 - **Rate limiting**: Protection against brute-force and abuse (see below)
 
 ---
@@ -220,11 +236,11 @@ Whispr is built with privacy as a core principle:
 
 Whispr implements tiered rate limiting to prevent abuse while maintaining usability:
 
-| Endpoint | Limit | Window | Key |
-|----------|-------|--------|-----|
-| Registration | 3 requests | 30 days | IP address |
-| Login | 5 requests | 15 minutes | IP address |
-| General API | 10 requests | 60 seconds | User ID |
+| Endpoint     | Limit       | Window     | Key        |
+| ------------ | ----------- | ---------- | ---------- |
+| Registration | 3 requests  | 30 days    | IP address |
+| Login        | 5 requests  | 15 minutes | IP address |
+| General API  | 10 requests | 60 seconds | User ID    |
 
 ### Implementation
 
@@ -249,6 +265,26 @@ I welcome contributions! Please follow these steps:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+### Code quality
+
+These checks run in CI and, where noted, automatically on commit:
+
+| Command                | Purpose                            |
+| ---------------------- | ---------------------------------- |
+| `npm run format`       | Format files with Prettier         |
+| `npm run format:check` | Verify formatting                  |
+| `npm run lint`         | Lint with ESLint                   |
+| `npm run typecheck`    | Type-check in strict mode          |
+| `npm run knip`         | Detect unused files, exports, deps |
+| `npm run test:unit`    | Run Vitest unit tests              |
+| `npm run test:e2e`     | Run Playwright end-to-end tests    |
+| `npm run quality`      | Run format, lint, types, and Knip  |
+
+Husky runs formatting and linting on staged files before each commit. Commit
+messages must follow [Conventional Commits](https://www.conventionalcommits.org/)
+(for example, `feat: add mood filter`). CI also runs Gitleaks secret scanning
+against the change history.
+
 ---
 
 ## License
@@ -258,7 +294,7 @@ This project is developed as part of the **CSci 153: Web Systems and Technologie
 ---
 
 <div align="center">
-  
-  [ Back to Top](#whispr)
-  
+
+[ Back to Top](#whispr)
+
 </div>

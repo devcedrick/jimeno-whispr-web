@@ -1,13 +1,7 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -16,18 +10,18 @@ const Logout = () => {
   const router = useRouter();
 
   const handleSignout = async () => {
-    const res = await fetch('/api/auth/signout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("/api/auth/signout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
     });
 
     if (res.ok) {
-      toast.success('Signed out successfully');
-      router.push('/login');
+      toast.success("Signed out successfully");
+      router.push("/login");
     } else {
-      toast.error('Failed to sign out. Please try again.');
+      toast.error("Failed to sign out. Please try again.");
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center p-5 w-full h-dvh">
@@ -40,13 +34,17 @@ const Logout = () => {
         </CardHeader>
         <CardFooter className="flex gap-3">
           <Link href="/home" className="flex-1">
-            <Button variant="secondary" className="w-full">Cancel</Button>
+            <Button variant="secondary" className="w-full">
+              Cancel
+            </Button>
           </Link>
-          <Button variant='destructive' className="text-black flex-1" onClick={handleSignout}>Logout</Button>
+          <Button variant="destructive" className="text-black flex-1" onClick={handleSignout}>
+            Logout
+          </Button>
         </CardFooter>
       </Card>
     </div>
-  )
-}
+  );
+};
 
 export default Logout;

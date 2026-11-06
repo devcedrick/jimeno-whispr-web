@@ -1,12 +1,12 @@
-'use client'
+"use client";
 
 import type { User } from "@/types";
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from "@/utils/supabase/client";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-export function useCurrentUser(){
+export function useCurrentUser() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const supabase = createClient();
   const params = useParams();
@@ -16,35 +16,37 @@ export function useCurrentUser(){
     const fetchFullUserData = async () => {
       try {
         // 1. Get the Auth User
-        const { data: { user } } = await supabase.auth.getUser();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
         if (!user) return;
 
         // 2. Get the Anon Profile
         const { data: anonData } = await supabase
-          .from('anon_users')
-          .select('anon_id, listening_pts, venting_pts')
-          .eq('id', user.id)
+          .from("anon_users")
+          .select("anon_id, listening_pts, venting_pts")
+          .eq("id", user.id)
           .single();
 
         if (!anonData) return;
 
-        const userData: User = { 
-            id: user.id, 
-            name: anonData.anon_id ,
-            role: null,
-            listeningPts: anonData.listening_pts,
-            ventingPts: anonData.venting_pts
+        const userData: User = {
+          id: user.id,
+          name: anonData.anon_id,
+          role: null,
+          listeningPts: anonData.listening_pts,
+          ventingPts: anonData.venting_pts,
         };
 
-        if(!sessionId){
+        if (!sessionId) {
           setCurrentUser(userData);
           return;
         }
 
         const { data: sessionData } = await supabase
-          .from('chat_sessions')
-          .select('user_a, user_b, user_a_role, user_b_role')
-          .eq('id', sessionId)
+          .from("chat_sessions")
+          .select("user_a, user_b, user_a_role, user_b_role")
+          .eq("id", sessionId)
           .single();
 
         if (sessionData) {
@@ -56,7 +58,6 @@ export function useCurrentUser(){
         }
 
         setCurrentUser(userData);
-
       } catch (error) {
         console.error(error);
         toast.error("Failed to fetch user data.");

@@ -1,0 +1,37 @@
+name: OpenCode Bot
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
+  issues:
+    types: [assigned]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: opencode-bot-${{ github.event.pull_request.number || github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  bot:
+    name: Review or fix
+    # Enable by setting the repository variable OPENCODE_BOT_ENABLED to "true"
+    # after adding the secrets and variables listed in README-GITHUB.md.
+    if: vars.OPENCODE_BOT_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run OpenCode
+        uses: link-seek/opencode-github-bot@v0.2.9
+        with:
+          model: ${{ vars.OPENCODE_REVIEW_MODEL }}
+          github-token: ${{ secrets.AGENT_GITHUB_TOKEN }}
+          llm-api-key: ${{ secrets.OPENCODE_API_KEY }}
+          mode: ${{ github.event_name == 'issues' && 'fix-issue' || 'review' }}
+          pr-number: ${{ github.event.pull_request.number || '' }}
+          issue-number: ${{ github.event.issue.number || '' }}

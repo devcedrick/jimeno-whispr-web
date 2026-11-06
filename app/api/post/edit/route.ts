@@ -3,7 +3,10 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(request: Request) {
   const supabase = await createClient();
-  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
 
   if (authError || !user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -12,7 +15,7 @@ export async function PATCH(request: Request) {
   try {
     const { id, content } = await request.json();
 
-    if (!id || !content || typeof content !== 'string' || content.trim().length === 0) {
+    if (!id || !content || typeof content !== "string" || content.trim().length === 0) {
       return NextResponse.json({ error: "Invalid request" }, { status: 400 });
     }
 
@@ -21,11 +24,7 @@ export async function PATCH(request: Request) {
     }
 
     // Verify ownership
-    const { data: post } = await supabase
-      .from('posts')
-      .select('author_id')
-      .eq('id', id)
-      .single();
+    const { data: post } = await supabase.from("posts").select("author_id").eq("id", id).single();
 
     if (!post) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
@@ -36,9 +35,9 @@ export async function PATCH(request: Request) {
     }
 
     const { data, error } = await supabase
-      .from('posts')
+      .from("posts")
       .update({ content: content.trim() })
-      .eq('id', id)
+      .eq("id", id)
       .select()
       .single();
 
@@ -48,7 +47,6 @@ export async function PATCH(request: Request) {
     }
 
     return NextResponse.json(data);
-
   } catch (error) {
     console.error("Server Error:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

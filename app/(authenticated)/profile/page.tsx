@@ -1,12 +1,14 @@
-import { createClient } from '@/utils/supabase/server';
-import { redirect } from 'next/navigation';
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
 export default async function ProfileRedirectPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect('/login');
+    redirect("/login");
   }
 
   const { data: profile } = await supabase
@@ -16,7 +18,7 @@ export default async function ProfileRedirectPage() {
     .single();
 
   if (!profile || !profile.anon_id) {
-    redirect('/register');
+    redirect("/register");
   }
 
   redirect(`/profile/${profile.anon_id}`);

@@ -1,13 +1,13 @@
 export type User = {
   id: string;
-  name: string; 
+  name: string;
   role?: UserRole | null;
   listeningPts?: number;
   ventingPts?: number;
   distance?: number;
 };
 
-export type UserRole = 'venter' | 'listener'| null;
+export type UserRole = "venter" | "listener" | null;
 
 export type Post = {
   id: string;
@@ -19,10 +19,10 @@ export type Post = {
   created_at: string;
   distance?: number;
   canManagePost?: boolean;
-}
+};
 
 export type LeaderboardUser = {
   id: string;
   anonId: string;
   points: number;
-}
+};

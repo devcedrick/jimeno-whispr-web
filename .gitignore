@@ -47,4 +47,11 @@ next-env.d.ts
 # vscode
 .vscode/*
 
+# OpenCode bot working files (copied into the checkout by opencode-github-bot)
+.opencode/plugins/
+.opencode/skills/
+.opencode/agents/
+.opencode/pr-context.md
+.opencode/issue-context.md
+
 RELEASE.md

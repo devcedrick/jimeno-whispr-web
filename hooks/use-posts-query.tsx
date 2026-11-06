@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { getCurrentLocation } from "@/lib/geolocation";
 import { Post } from "@/types";
@@ -13,50 +13,52 @@ export function usePostsQuery(getNearby: boolean = true) {
 
   const fetchPosts = async () => {
     setIsLoading(true);
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
     if (!user) {
       toast.error("You must be logged in to view posts.");
       return;
-    } 
+    }
 
     let data, error;
     if (getNearby) {
       const location = await getCurrentLocation();
-      ({ data, error } = await supabase.rpc('get_nearby_posts', {
+      ({ data, error } = await supabase.rpc("get_nearby_posts", {
         user_lat: location.lat,
         user_long: location.lng,
-        radius_meters: 10000
+        radius_meters: 10000,
       }));
     } else {
-      (
-        { data, error } = await supabase
-          .from('posts')
-          .select(`
+      ({ data, error } = await supabase
+        .from("posts")
+        .select(
+          `
             *,
             anon_users!posts_author_id_fkey1 (
               anon_id 
             )
-          `)
-          .order('created_at', { ascending: false })
-      );
+          `,
+        )
+        .order("created_at", { ascending: false }));
     }
 
     if (error || !data) {
       console.error("Error fetching posts:", error);
       return;
     }
-    
+
     const myLikedPostIds = new Set();
     if (user) {
-      const {data: likesData} = await supabase
-        .from('post_likes')
-        .select('post_id')
-        .eq('user_id', user.id);
+      const { data: likesData } = await supabase
+        .from("post_likes")
+        .select("post_id")
+        .eq("user_id", user.id);
 
-        if (likesData) {
-          likesData.forEach(like => myLikedPostIds.add(like.post_id));
-        }
+      if (likesData) {
+        likesData.forEach((like) => myLikedPostIds.add(like.post_id));
+      }
     }
 
     const formattedPosts: Post[] = data.map((post: any) => ({
@@ -68,16 +70,16 @@ export function usePostsQuery(getNearby: boolean = true) {
       isLikedByMe: myLikedPostIds.has(post.id),
       created_at: post.created_at,
       canManagePost: user ? post.author_id === user.id : false,
-      distance: post.dist_meters
+      distance: post.dist_meters,
     }));
 
     setPosts(formattedPosts);
     setIsLoading(false);
-  }
+  };
 
   useEffect(() => {
     fetchPosts();
   }, []);
 
-  return { posts, isLoading, refetch: fetchPosts }
+  return { posts, isLoading, refetch: fetchPosts };
 }

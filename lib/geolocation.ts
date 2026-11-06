@@ -31,9 +31,9 @@ export const getCurrentLocation = () => {
       },
       {
         enableHighAccuracy: true, // Uses GPS (slower, accurate) instead of IP (fast, inaccurate)
-        timeout: 20000,          
-        maximumAge: 0      
-      }
+        timeout: 20000,
+        maximumAge: 0,
+      },
     );
   });
 };
