@@ -282,7 +282,8 @@ These checks run in CI and, where noted, automatically on commit:
 
 Husky runs formatting and linting on staged files before each commit. Commit
 messages must follow [Conventional Commits](https://www.conventionalcommits.org/)
-(for example, `feat: add mood filter`).
+(for example, `feat: add mood filter`). CI also runs Gitleaks secret scanning
+against the change history.
 
 ---
 
