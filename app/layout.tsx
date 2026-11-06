@@ -20,10 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${interSans.variable} relative antialiased`}
-      >
-        <Toaster position="top-right" richColors/>
+      <body className={`${interSans.variable} relative antialiased`}>
+        <Toaster position="top-right" richColors />
         {children}
       </body>
     </html>

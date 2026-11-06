@@ -6,12 +6,10 @@ export default function AuthenticatedLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return(
+  return (
     <SessionProvider>
       <HeaderWrapper />
-      <main>
-        {children}
-      </main>
+      <main>{children}</main>
     </SessionProvider>
-  )
+  );
 }

@@ -1,10 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import adjectivesData from "@/data/adjectives.json";
 import beingsData from "@/data/beings.json";
-import {
-  generateAnonId,
-  generatePassword,
-} from "@/lib/generateCredential";
+import { generateAnonId, generatePassword } from "@/lib/generateCredential";
 
 const passwordCharset =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}";
@@ -13,9 +10,7 @@ describe("generateAnonId", () => {
   it("combines an adjective, a being, and a two-digit suffix", () => {
     vi.spyOn(Math, "random").mockReturnValue(0);
 
-    expect(generateAnonId()).toBe(
-      `${adjectivesData.adjectives[0]}${beingsData.beings[0]}00`,
-    );
+    expect(generateAnonId()).toBe(`${adjectivesData.adjectives[0]}${beingsData.beings[0]}00`);
   });
 });
 

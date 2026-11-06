@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
@@ -8,21 +8,21 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
-} from "@/components/ui/card"
+  CardTitle,
+} from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu"
-import { createClient } from '@/utils/supabase/client'
-import { Heart, MoreVertical, Pencil, Trash } from 'lucide-react'
-import Link from 'next/link'
-import React, { useState } from 'react'
-import { toast } from 'sonner'
-import CustomAvatar from './CustomAvatar'
-import PostDialog from './PostDialog'
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { createClient } from "@/utils/supabase/client";
+import { Heart, MoreVertical, Pencil, Trash } from "lucide-react";
+import Link from "next/link";
+import React, { useState } from "react";
+import { toast } from "sonner";
+import CustomAvatar from "./CustomAvatar";
+import PostDialog from "./PostDialog";
 
 interface PostCardProps {
   id: string;
@@ -39,7 +39,7 @@ interface PostCardProps {
 }
 
 const PostCard: React.FC<PostCardProps> = ({
-  id, 
+  id,
   anonId,
   content,
   createdAt,
@@ -54,26 +54,26 @@ const PostCard: React.FC<PostCardProps> = ({
   const [likes, setLikes] = useState<number>(likesCount ?? 0);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const profileURL = anonId ? `/profile/${anonId}`: '#';
+  const profileURL = anonId ? `/profile/${anonId}` : "#";
 
   const getDate = () => {
-    if (!createdAt) return '';
+    if (!createdAt) return "";
     const date = new Date(createdAt);
     return date.toLocaleDateString(undefined, {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
+      month: "short",
+      day: "numeric",
+      year: "numeric",
     });
-  }
+  };
 
   const getTime = () => {
-    if (!createdAt) return '';
+    if (!createdAt) return "";
     const date = new Date(createdAt);
     return date.toLocaleTimeString(undefined, {
-      hour: '2-digit',
-      minute: '2-digit',
-    }); 
-  }
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
   const handleLike = async () => {
     const newIsLiked = !isLiked;
@@ -82,32 +82,32 @@ const PostCard: React.FC<PostCardProps> = ({
     setIsLiked(newIsLiked);
     setLikes(newLikesCount);
 
-    const { error } = await supabase.rpc('toggle_like', { 
-      target_post_id: id 
+    const { error } = await supabase.rpc("toggle_like", {
+      target_post_id: id,
     });
 
     if (error) {
       console.error(error);
       toast.error("Failed to update like");
       setIsLiked(!newIsLiked);
-      setLikes(likes); 
+      setLikes(likes);
     }
-  }
+  };
 
   return (
     <Card onDoubleClick={handleLike}>
-      <CardHeader className='flex justify-between items-center'>
-        <div className='flex items-center gap-3'>
+      <CardHeader className="flex justify-between items-center">
+        <div className="flex items-center gap-3">
           <Link href={profileURL}>
-            <CustomAvatar name={anonId}/>
+            <CustomAvatar name={anonId} />
           </Link>
-          <div className='flex flex-col gap-1'>
+          <div className="flex flex-col gap-1">
             <Link href={profileURL}>
-              <CardTitle className='text-sm'>{anonId || 'Anonymous'}</CardTitle>
+              <CardTitle className="text-sm">{anonId || "Anonymous"}</CardTitle>
             </Link>
-            <CardDescription className='text-xs text-muted-foreground'>
+            <CardDescription className="text-xs text-muted-foreground">
               {`${getDate()} • ${getTime()} `}
-              {distance ? `• ${(distance / 1000).toFixed(1)}km away` : ''}
+              {distance ? `• ${(distance / 1000).toFixed(1)}km away` : ""}
             </CardDescription>
           </div>
         </div>
@@ -121,28 +121,45 @@ const PostCard: React.FC<PostCardProps> = ({
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {/* EDIT BUTTON */}
-                <PostDialog dialogType='edit' postId={id} initialContent={content} onSuccess={onPostChange} onOpenChange={(open) => !open && setDropdownOpen(false)}>
-                  <DropdownMenuItem 
-                    className='cursor-pointer' 
-                    onSelect={(e) => e.preventDefault()} 
+                <PostDialog
+                  dialogType="edit"
+                  postId={id}
+                  initialContent={content}
+                  onSuccess={onPostChange}
+                  onOpenChange={(open) => !open && setDropdownOpen(false)}
+                >
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onSelect={(e) => e.preventDefault()}
                     asChild
                   >
-                    <Button variant="ghost" className="flex justify-start w-full group hover:bg-primary! hover:text-white!">
-                      <Pencil className="mr-2 h-4 w-4 group-hover:fill-white group-hover:text-white"/> 
+                    <Button
+                      variant="ghost"
+                      className="flex justify-start w-full group hover:bg-primary! hover:text-white!"
+                    >
+                      <Pencil className="mr-2 h-4 w-4 group-hover:fill-white group-hover:text-white" />
                       Edit
                     </Button>
                   </DropdownMenuItem>
                 </PostDialog>
 
                 {/* DELETE BUTTON */}
-                <PostDialog dialogType='delete' postId={id} onSuccess={onPostChange} onOpenChange={(open) => !open && setDropdownOpen(false)}>
-                  <DropdownMenuItem 
-                    className='cursor-pointer text-destructive' 
-                    onSelect={(e) => e.preventDefault()} 
+                <PostDialog
+                  dialogType="delete"
+                  postId={id}
+                  onSuccess={onPostChange}
+                  onOpenChange={(open) => !open && setDropdownOpen(false)}
+                >
+                  <DropdownMenuItem
+                    className="cursor-pointer text-destructive"
+                    onSelect={(e) => e.preventDefault()}
                     asChild
                   >
-                    <Button variant="ghost" className="flex justify-start w-full group hover:bg-destructive! hover:text-black! hover:ring-destructive/50!">
-                      <Trash className="mr-2 h-4 w-4 group-hover:fill-black group-hover:text-black"/> 
+                    <Button
+                      variant="ghost"
+                      className="flex justify-start w-full group hover:bg-destructive! hover:text-black! hover:ring-destructive/50!"
+                    >
+                      <Trash className="mr-2 h-4 w-4 group-hover:fill-black group-hover:text-black" />
                       Delete
                     </Button>
                   </DropdownMenuItem>
@@ -152,17 +169,25 @@ const PostCard: React.FC<PostCardProps> = ({
           )}
         </div>
       </CardHeader>
-      <CardContent className='whitespace-pre-wrap wrap-break-word pl-8'>{content}</CardContent>
+      <CardContent className="whitespace-pre-wrap wrap-break-word pl-8">{content}</CardContent>
       <CardFooter>
-        <CardAction className='flex items-center'>
-          <Button variant="ghost" onClick={handleLike} className='hover:bg-transparent hover:text-destructive hover:scale-105'>
-            <Heart fill={isLiked ? "red" : "none"} stroke={isLiked ? "none" : "black"} className='h-6! w-6!'/>
+        <CardAction className="flex items-center">
+          <Button
+            variant="ghost"
+            onClick={handleLike}
+            className="hover:bg-transparent hover:text-destructive hover:scale-105"
+          >
+            <Heart
+              fill={isLiked ? "red" : "none"}
+              stroke={isLiked ? "none" : "black"}
+              className="h-6! w-6!"
+            />
           </Button>
-          <span className='text-sm'>{likes} likes</span>
+          <span className="text-sm">{likes} likes</span>
         </CardAction>
       </CardFooter>
     </Card>
-  )
-}
+  );
+};
 
-export default PostCard
+export default PostCard;

@@ -11,18 +11,15 @@ export async function POST(request: Request) {
     if (!allowed) {
       return NextResponse.json(
         { error: "Too many login attempts. Please try again later." },
-        { status: 429 }
+        { status: 429 },
       );
     }
 
     const body = await request.json();
     const { anonId, password } = body;
 
-    if(!anonId || !password) {
-      return NextResponse.json(
-        { error: "Misging Anonymous ID or password" },
-        {status: 400}
-      )
+    if (!anonId || !password) {
+      return NextResponse.json({ error: "Misging Anonymous ID or password" }, { status: 400 });
     }
 
     const dummyEmail = `${anonId}@whispr.vercel.app`;
@@ -31,23 +28,17 @@ export async function POST(request: Request) {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: dummyEmail,
       password: password,
-    })
+    });
 
-    if(error) {
-      return NextResponse.json(
-        { error: error.message },
-        { status: 400 }
-      )
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
     return NextResponse.json(
       { message: "User logged in successfully", data: data },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (err) {
-    return NextResponse.json(
-      {error: "Internal Server Error"},
-      {status: 500}
-    );
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

@@ -5,27 +5,33 @@ export async function POST(req: Request) {
   try {
     const supabase = await createClient();
 
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
     if (authError || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const { sessionId, partner, rating } = await req.json();
 
-    if (!sessionId || !partner?.id || typeof rating !== 'number') {
-      return NextResponse.json({ error: "Missing required fields: sessionId, partner.id, or rating" }, { status: 400 });
+    if (!sessionId || !partner?.id || typeof rating !== "number") {
+      return NextResponse.json(
+        { error: "Missing required fields: sessionId, partner.id, or rating" },
+        { status: 400 },
+      );
     }
 
     if (user.id === partner.id) {
-       return NextResponse.json({ error: "You cannot rate yourself." }, { status: 400 });
+      return NextResponse.json({ error: "You cannot rate yourself." }, { status: 400 });
     }
 
-    const ratingField = partner.role === 'venter' ? 'venting_pts' : 'listening_pts';
-    
+    const ratingField = partner.role === "venter" ? "venting_pts" : "listening_pts";
+
     // Fetch current data
     const { data: partnerData, error: fetchError } = await supabase
       .from("anon_users")
-      .select(ratingField) 
+      .select(ratingField)
       .eq("id", partner.id)
       .single();
 
@@ -37,15 +43,15 @@ export async function POST(req: Request) {
     const newPoints = currentScore + rating;
 
     const { error: updateError } = await supabase
-      .from("anon_users") 
+      .from("anon_users")
       .update({
-        [ratingField]: newPoints
+        [ratingField]: newPoints,
       })
       .eq("id", partner.id);
 
     if (updateError) {
       throw new Error(updateError.message);
-    } 
+    }
 
     const { error: feedbackDeleteError } = await supabase
       .from("feedback_permissions")
@@ -54,20 +60,16 @@ export async function POST(req: Request) {
       .eq("partner_id", partner.id)
       .eq("session_id", sessionId);
 
-    if(feedbackDeleteError) {
+    if (feedbackDeleteError) {
       throw new Error(feedbackDeleteError.message);
     }
 
     return NextResponse.json({
       message: "Feedback submitted successfully.",
-      status: 200
+      status: 200,
     });
-
   } catch (error: any) {
     console.error("Feedback API Error:", error);
-    return NextResponse.json(
-        { error: error.message || "Internal Server Error" }, 
-        { status: 500 }
-    );
+    return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
   }
 }
