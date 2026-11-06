@@ -1,3 +1,4 @@
+import Loading from '@/app/loading';
 import PostCard from '@/components/PostCard';
 import {
   Card,
@@ -6,8 +7,16 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle
+} from "@/components/ui/empty";
 import { usePostsQuery } from '@/hooks/use-posts-query';
 import { createClient } from '@/utils/supabase/client';
+import { MessageCircleDashed } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface UserFeedProps {
@@ -18,7 +27,7 @@ const UserFeed = ({targetUserId}: UserFeedProps) => {
   const supabase = createClient()
 
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
-  const { posts, refetch } = usePostsQuery(false);
+  const { posts, isLoading, refetch } = usePostsQuery(false);
 
   useEffect(() => {
     const fetchCurrentUserId = async () => {
@@ -38,6 +47,21 @@ const UserFeed = ({targetUserId}: UserFeedProps) => {
       </CardHeader>
       <CardContent className='flex flex-col gap-4'>
         {
+          isLoading ? (
+            <Loading />
+          ) : posts.length === 0 ? (
+            <Empty>
+              <EmptyHeader>
+                <EmptyMedia variant="icon" className='bg-gray-200'>
+                  <MessageCircleDashed />
+                </EmptyMedia>
+                <EmptyTitle>It&apos;s quiet here...</EmptyTitle>
+                <EmptyDescription>
+                  Be the first to break the silence. Share your thoughts anonymously.
+                </EmptyDescription>
+              </EmptyHeader>
+            </Empty>
+          ) :
           posts
             .filter(post => post.author_id === targetUserId)
             .map(post => {
